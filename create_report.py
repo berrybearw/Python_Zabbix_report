@@ -7,6 +7,15 @@ from datetime import datetime, timedelta
 import time
 
 # Zabbix API configuration
+
+# Threshold 設定：超過才顯示（或低於才警示）
+THRESHOLDS = {
+    "cpu": 70,           # CPU utilization > 70%
+    "memory": 20,        # 可用記憶體百分比 < 20%（因為是 pavailable）
+    "load": 5,           # Load average > 5
+    "iops": 1000         # IOPS > 1000 ops/s
+}
+
 ZABBIX_URL = "http://10.40.4.67:8090/api_jsonrpc.php"
 ZABBIX_USER = "Admin"
 ZABBIX_PASSWORD = "zabbix"
@@ -91,7 +100,7 @@ def get_system_info(host_id, auth_token):
         }
     return {}
 
-def get_historical_data(host_id, item_key, value_type, auth_token):
+def get_historical_data(host_id, item_key, value_type, auth_token, threshold=None, invert=False):
     params = {
         "hostids": host_id,
         "filter": {"key_": item_key},  # ✅ 用 filter 是精確比對
@@ -118,6 +127,17 @@ def get_historical_data(host_id, item_key, value_type, auth_token):
     for entry in history:
         timestamp = datetime.fromtimestamp(int(entry['clock'])).strftime('%Y-%m-%d %H:%M:%S')
         value = float(entry['value'])
+        if 'memory' in item_key and value_type == 3 and 'pavailable' not in item_key:
+            value = value / (1024 * 1024 * 1024)  # bytes → GB
+
+        if threshold is not None:
+            if invert:
+                if value >= threshold:
+                    continue
+            else:
+                if value <= threshold:
+                    continue
+
 
         if 'memory' in item_key and value_type == 3:
             value = value / (1024 * 1024 * 1024)  # bytes → GB
@@ -160,10 +180,10 @@ list_hosts(auth_token)
 #debug_list_keys(HOST_ID, auth_token, "cpu.load")
 
 system_info = get_system_info(HOST_ID, auth_token)
-cpu_data = get_historical_data(HOST_ID, 'system.cpu.util', 0, auth_token)
-mem_data = get_historical_data(HOST_ID, 'vm.memory.size[pavailable]', 0, auth_token)
-load_average_data = get_historical_data(HOST_ID, 'system.cpu.load[all,avg1]', 0, auth_token)
-disk_write_data = get_historical_data(HOST_ID, 'custom.iops[dm-0]', 0, auth_token)
+cpu_data = get_historical_data(HOST_ID, 'system.cpu.util', 0, auth_token, threshold=THRESHOLDS["cpu"])
+mem_data = get_historical_data(HOST_ID, 'vm.memory.size[pavailable]', 0, auth_token, threshold=THRESHOLDS["memory"], invert=True)
+load_average_data = get_historical_data(HOST_ID, 'system.cpu.load[all,avg1]', 0, auth_token, threshold=THRESHOLDS["load"])
+disk_write_data = get_historical_data(HOST_ID, 'custom.iops[dm-0]', 0, auth_token, threshold=THRESHOLDS["iops"])
 
 # 建立 PDF
 pdf_file = 'zabbix_report.pdf'

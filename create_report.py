@@ -10,10 +10,22 @@ import time
 ZABBIX_URL = "http://10.40.4.67:8090/api_jsonrpc.php"
 ZABBIX_USER = "Admin"
 ZABBIX_PASSWORD = "zabbix"
-HOST_ID = "10643"  # Replace with your host ID
+HOST_ID = "10644"
 HEADERS = {"Content-Type": "application/json"}
 
-# Function to get Zabbix API token
+# 將資料轉為兩欄一排的格式
+def format_two_column_table(data, title1="Timestamp", value1="Value", title2="Timestamp", value2="Value"):
+    table_data = [[title1, value1, title2, value2]]
+    for i in range(0, len(data), 2):
+        row = []
+        row.extend(data[i])
+        if i + 1 < len(data):
+            row.extend(data[i + 1])
+        else:
+            row.extend(["", ""])  # 補空
+        table_data.append(row)
+    return table_data
+
 def get_zabbix_token():
     login_data = {
         "jsonrpc": "2.0",
@@ -37,7 +49,6 @@ def get_zabbix_token():
         print(f"Error obtaining token: {str(e)}")
         exit(1)
 
-# Function to make Zabbix API request
 def zabbix_api_request(method, params, auth_token):
     request_data = {
         "jsonrpc": "2.0",
@@ -58,7 +69,6 @@ def zabbix_api_request(method, params, auth_token):
         print(f"Error in API request ({method}): {str(e)}")
         return []
 
-# Function to get system information
 def get_system_info(host_id, auth_token):
     params = {
         "hostids": host_id,
@@ -69,13 +79,10 @@ def get_system_info(host_id, auth_token):
     if hosts:
         host = hosts[0]
         inventory = host.get('inventory', {})
-        
-        # ✅ 修正點：處理 inventory 是 list 的情況
         if isinstance(inventory, list) and inventory:
             inventory = inventory[0]
         elif not isinstance(inventory, dict):
-            inventory = {}  # fallback 防呆
-
+            inventory = {}
         return {
             'Hostname': host.get('name', 'N/A'),
             'OS': inventory.get('os', 'N/A'),
@@ -84,21 +91,18 @@ def get_system_info(host_id, auth_token):
         }
     return {}
 
-# Function to get historical data
 def get_historical_data(host_id, item_key, value_type, auth_token):
-    # Get item ID
     params = {
         "hostids": host_id,
-        "search": {"key_": item_key},
+        "filter": {"key_": item_key},  # ✅ 用 filter 是精確比對
         "output": ["itemid", "name", "key_", "value_type"]
     }
     items = zabbix_api_request("item.get", params, auth_token)
     if not items:
         print(f"No items found for key: {item_key}")
         return []
-    
+
     item_id = items[0]['itemid']
-    # Get history data
     params = {
         "history": value_type,
         "itemids": item_id,
@@ -109,20 +113,29 @@ def get_historical_data(host_id, item_key, value_type, auth_token):
         "sortorder": "ASC"
     }
     history = zabbix_api_request("history.get", params, auth_token)
-    
+
     data = []
     for entry in history:
         timestamp = datetime.fromtimestamp(int(entry['clock'])).strftime('%Y-%m-%d %H:%M:%S')
-        #value = float(entry['value'])
-        #data.append([timestamp, f"{value:.2f}"])
         value = float(entry['value'])
 
         if 'memory' in item_key and value_type == 3:
-            # 如果是 memory 且是 unsigned int，轉換為 MB
-            value = value / (1024 * 1024 * 1024)
-        
+            value = value / (1024 * 1024 * 1024)  # bytes → GB
+
         data.append([timestamp, f"{value:.2f}"])
     return data
+
+def debug_list_keys(host_id, auth_token, keyword):
+    params = {
+        "hostids": host_id,
+        "output": ["itemid", "name", "key_"]
+    }
+    items = zabbix_api_request("item.get", params, auth_token)
+    for item in items:
+        print(f"{item['name']} ")
+        if keyword in item['key_']:
+            print(f"{item['itemid']} | {item['name']} | {item['key_']}")
+
 
 # 查詢所有主機的 hostid 和名稱
 def list_hosts(auth_token):
@@ -133,102 +146,91 @@ def list_hosts(auth_token):
     for host in hosts:
         print(f"hostid: {host['hostid']}, host: {host['host']}, name: {host['name']}")
 
-def list_all_items(host_id, auth_token):
-    params = {
-        "hostids": host_id,
-        "output": ["itemid", "name", "key_"]
-    }
-    items = zabbix_api_request("item.get", params, auth_token)
-    for item in items:
-        print(f"{item['itemid']} | {item['name']} | {item['key_']}")
 
-# Get auth token
+# 取得時間範圍
+num = 7 * 24 * 3600
+time_till = int(time.time())
+time_from = time_till - (num)  # 過去 7 天
+
+# 取得資料與產生報表
 auth_token = get_zabbix_token()
 print("Authentication successful")
 
-# List all hosts
 list_hosts(auth_token)
+#debug_list_keys(HOST_ID, auth_token, "cpu.load")
 
-#list_all_items(HOST_ID, auth_token)
-
-# Define time range (last 7 days)
-time_till = int(time.time())
-time_from = time_till - (7 * 24 * 3600)  # 7 days ago
-
-# Collect data
 system_info = get_system_info(HOST_ID, auth_token)
-cpu_data = get_historical_data(HOST_ID, 'system.cpu.util', 0, auth_token)  # Float type
-mem_data = get_historical_data(HOST_ID, 'vm.memory.size[used]', 3, auth_token)   # Unsigned integer
-disk_read_data = get_historical_data(HOST_ID, 'vfs.dev.read[sda,ops]', 0, auth_token)  # Float type
-disk_write_data = get_historical_data(HOST_ID, 'vfs.dev.write[sda,ops]', 0, auth_token)  # Float type
+cpu_data = get_historical_data(HOST_ID, 'system.cpu.util', 0, auth_token)
+mem_data = get_historical_data(HOST_ID, 'vm.memory.size[pavailable]', 0, auth_token)
+load_average_data = get_historical_data(HOST_ID, 'system.cpu.load[all,avg1]', 0, auth_token)
+disk_write_data = get_historical_data(HOST_ID, 'custom.iops[dm-0]', 0, auth_token)
 
-# Create PDF report
+# 建立 PDF
 pdf_file = 'zabbix_report.pdf'
 doc = SimpleDocTemplate(pdf_file, pagesize=letter)
 styles = getSampleStyleSheet()
 elements = []
 
-# Page 1: System Information
+# Page 1: 系統資訊
 elements.append(Paragraph("System Information", styles['Title']))
 elements.append(Spacer(1, 12))
 for key, value in system_info.items():
     elements.append(Paragraph(f"<b>{key}:</b> {value}", styles['Normal']))
     elements.append(Spacer(1, 12))
+elements.append(Spacer(1, 300))  # 換頁
 
-# Force new page
-elements.append(Spacer(1, 300))  # Large spacer to push to next page
-
-# Page 2: Historical Data
+# Page 2: 資料報表
 elements.append(Paragraph("Historical Data (Last 7 Days)", styles['Title']))
 elements.append(Spacer(1, 12))
 
-# CPU Utilization Table
+# CPU
 elements.append(Paragraph("CPU Utilization (%)", styles['Heading2']))
-cpu_table_data = [['Timestamp', 'Value (%)']] + cpu_data[:30]  # Limit to 10 entries
-cpu_table = Table(cpu_table_data)
+cpu_table_data = format_two_column_table(cpu_data[:num], "Timestamp", "Value (%)", "Timestamp", "Value (%)")
+cpu_table = Table(cpu_table_data, colWidths=[120, 50, 120, 50])
 cpu_table.setStyle(TableStyle([
-    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
     ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
     ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke)
 ]))
 elements.append(cpu_table)
 elements.append(Spacer(1, 12))
 
-# Memory Usage Table
+# Memory
 elements.append(Paragraph("Memory Usage (GB)", styles['Heading2']))
-mem_table_data = [['Timestamp', 'Value (GB)']] + mem_data[:30]
-mem_table = Table(mem_table_data)
+mem_table_data = format_two_column_table(mem_data[:num], "Timestamp", "Value (GB)", "Timestamp", "Value (GB)")
+mem_table = Table(mem_table_data, colWidths=[120, 50, 120, 50])
 mem_table.setStyle(TableStyle([
-    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
     ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
     ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke)
 ]))
 elements.append(mem_table)
 elements.append(Spacer(1, 12))
 
-# Disk I/O Tables
+# Disk Read
 elements.append(Paragraph("Disk Read Operations (ops/s)", styles['Heading2']))
-disk_read_table_data = [['Timestamp', 'Value (ops/s)']] + disk_read_data[:10]
-disk_read_table = Table(disk_read_table_data)
+disk_read_table_data = format_two_column_table(load_average_data[:num], "Timestamp", "Value", "Timestamp", "Value")
+disk_read_table = Table(disk_read_table_data, colWidths=[120, 50, 120, 50])
 disk_read_table.setStyle(TableStyle([
-    ('GRID', (0, 0), (-1, -1), 1, colors.black),
+    ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
     ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
     ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke)
 ]))
 elements.append(disk_read_table)
 elements.append(Spacer(1, 12))
 
+# Disk Write
 elements.append(Paragraph("Disk Write Operations (ops/s)", styles['Heading2']))
-disk_write_table_data = [['Timestamp', 'Value (ops/s)']] + disk_write_data[:10]
-disk_write_table = Table(disk_write_table_data)
+disk_write_table_data = format_two_column_table(disk_write_data[:num], "Timestamp", "Value", "Timestamp", "Value")
+disk_write_table = Table(disk_write_table_data, colWidths=[120, 50, 120, 50])
 disk_write_table.setStyle(TableStyle([
-    ('GRID', (0, 0), (-1, -1), 1, colors.black),
-   ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+    ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+    ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
     ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke)
 ]))
 elements.append(disk_write_table)
 
-# Build PDF
+# 輸出 PDF
 try:
     doc.build(elements)
     print(f"Report generated: {pdf_file}")

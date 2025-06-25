@@ -1,4 +1,6 @@
 ## 執行方式
+- 搭配 Zabbix API
+- 讀取到 token 之後呼叫各指標
 - python3 create_report.py
 
 ## 執行結果

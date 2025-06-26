@@ -153,6 +153,53 @@
             {% endfor %}
           </tbody>
         </table>
+
+        <h2 class="section-title">系統 CPU 使用率報告</h2>
+
+        <h2 class="section-title">當月 CPU 使用率高於 70% 的紀錄</h2>
+        <p>外部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>主機名稱</th>
+              <th>使用率 (%)</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in linux.cpu_alerts %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ item.hostname }}</td>
+              <td>{{ item.usage }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <p>內部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>主機名稱</th>
+              <th>使用率 (%)</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in windows.cpu_alerts %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ item.hostname }}</td>
+              <td>{{ item.usage }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
     </div>
 </body>
 </html>

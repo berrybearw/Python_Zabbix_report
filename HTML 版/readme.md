@@ -2,6 +2,10 @@
 - 搭配 Zabbix API
 - agent 是部署在 Linux, Windows
 - 讀取到 token 之後呼叫各指標
+- report.html 與 test2.py 放同一個目錄
+- zabbix_conf 內的 scripts 放入 /etc/zabbix/scripts
+- 參照 zabbix_conf zabbix_agentd.conf 補上相關指令設定
+- 重啟 agent
 - python3 test2.py
 
 ## 套用模板

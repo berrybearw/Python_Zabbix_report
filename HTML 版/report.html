@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>成大外部伺服器每月檢測報告</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .page { max-width: 800px; margin: auto; }
+        .title { text-align: center; }
+        .section { margin-top: 20px; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .table th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1 class="title">成大外部伺服器每月檢測報告</h1>
+
+        <div class="section">
+            <h2>一、總覽摘要</h2>
+            <p>本報告涵蓋所有外部伺服器的資源使用情況與異常警示紀錄，為維運提供依據。</p>
+        </div>
+
+        <h2 class="section">外部系統基本資訊 (Linux)</h2>
+        <table class="table table-bordered table-sm">
+            <thead class="table-light">
+                <tr><th>項目</th><th>內容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>IP</td><td>{{ linux.system_ip }}</td></tr>
+                <tr><td>網址</td><td>{{ linux.system_url }}</td></tr>
+                <tr><td>作業系統</td><td>{{ linux.system_os }}</td></tr>
+                <tr><td>處理器</td><td>{{ linux.system_cpu }}</td></tr>
+                <tr><td>記憶體</td><td>{{ linux.system_mem }}</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="section">內部系統基本資訊 (Windows)</h2>
+        <table class="table table-bordered table-sm">
+            <thead class="table-light">
+                <tr><th>項目</th><th>內容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>IP</td><td>{{ windows.system_ip }}</td></tr>
+                <tr><td>網址</td><td>{{ windows.system_url }}</td></tr>
+                <tr><td>作業系統</td><td>{{ windows.system_os }}</td></tr>
+                <tr><td>處理器</td><td>{{ windows.system_cpu }}</td></tr>
+                <tr><td>記憶體</td><td>{{ windows.system_mem }}</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section">
+            <h2>二、每月玻片掃片量</h2>
+        </div>
+
+        <h2 class="section">外部系統每月掃片量</h2>
+        <table class="table table-bordered table-sm">
+            <tbody>
+                <tr><td>前一個月掃片量</td><td>{{ linux.last_month_count }}</td></tr>
+                <tr><td>本月掃片量</td><td>{{ linux.this_month_count }}</td></tr>
+                <tr><td>成長率</td><td>{{ linux.growth_rate }}</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="section">內部系統每月掃片量</h2>
+        <table class="table table-bordered table-sm">
+            <tbody>
+                <tr><td>前一個月掃片量</td><td>{{ windows.last_month_count }}</td></tr>
+                <tr><td>本月掃片量</td><td>{{ windows.this_month_count }}</td></tr>
+                <tr><td>成長率</td><td>{{ windows.growth_rate_percent }}</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section">
+            <h2>三、用戶登入情況</h2>
+        </div>
+
+        <h2 class="section">顯示登入外部系統次數前10名的使用者</h2>
+        <table class="table table-bordered table-sm">
+            <tbody>
+                <tr><td>外部用戶登入量</td><td>{{ linux.user_login_total }}</td></tr>
+                <tr><td>外部掃片數量</td><td>{{ linux.slide_total }}</td></tr>
+                <tr><td>外部玻片可用量</td><td>{{ linux.slide_free_size }}</td></tr>
+            </tbody>
+        </table>
+        
+        <h2 class="section">使用者登入排行前十名</h2>
+        <table class="table table-bordered table-sm">
+          <thead class="table-light">
+            <tr>
+              <th>排名</th>
+              <th>使用者帳號</th>
+              <th>使用者名稱</th>
+              <th>登入次數</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in linux.login_users %}
+            <tr>
+              <td>{{ loop.index }}.</td>
+              <td>{{ user.userid }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.count }}</td>
+            </tr>
+            {% endfor %}
+            {% for i in range(10 - linux.login_users|length) %}
+            <tr>
+              <td>{{ linux.login_users|length + i + 1 }}.</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h2 class="section">顯示登入內部系統次數前10名的使用者</h2>
+        <table class="table table-bordered table-sm">
+            <tbody>
+                <tr><td>內部用戶登入量</td><td>{{ windows.user_login_total }}</td></tr>
+                <tr><td>內部掃片數量</td><td>{{ windows.slide_total }}</td></tr>
+                <tr><td>內部玻片可用量</td><td>{{ windows.slide_free_size }}</td></tr>
+            </tbody>
+        </table>
+        
+        <h2 class="section">使用者登入排行前十名</h2>
+        <table class="table table-bordered table-sm">
+          <thead class="table-light">
+            <tr>
+              <th>排名</th>
+              <th>使用者帳號</th>
+              <th>使用者名稱</th>
+              <th>登入次數</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in windows.login_users %}
+            <tr>
+              <td>{{ loop.index }}.</td>
+              <td>{{ user.userid }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.count }}</td>
+            </tr>
+            {% endfor %}
+            {% for i in range(10 - windows.login_users|length) %}
+            <tr>
+              <td>{{ windows.login_users|length + i + 1 }}.</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</body>
+</html>

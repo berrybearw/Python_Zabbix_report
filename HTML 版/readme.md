@@ -6,7 +6,13 @@
 - zabbix_conf 內的 scripts 放入 /etc/zabbix/scripts
 - 參照 zabbix_conf zabbix_agentd.conf 補上相關指令設定
 - 重啟 agent
+- 給予 zabbix 能執行 docker，把 zabbix 加入 docker 群組(sudo usermod -aG docker zabbix)
 - python3 test2.py
+
+## 說明
+- zabbix_conf 是 zabbix 執行指令的設定檔
+- zabbix_conf/scripts/a.sh : 撈取 Cytomine 玻片 (總量,前一個月量,本月量,成長率)
+- zabbix_conf/scripts/user_login_num.sh : 撈取 Cytomine 本月登入用戶總量與前十名
 
 ## 套用模板
 - 模板 : html

@@ -4,13 +4,122 @@
     <meta charset="UTF-8">
     <title>成大外部伺服器每月檢測報告</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .page { max-width: 800px; margin: auto; }
-        .title { text-align: center; }
-        .section { margin-top: 20px; }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .table th { background-color: #f2f2f2; }
+        body {
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 30px 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        h1.title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #005a9e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        h2.section, h2.section-title {
+            border-left: 5px solid #005a9e;
+            padding-left: 10px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        h2.section-title {
+            border-left: 4px solid #e67e22;
+            background-color: #fef5e7;
+            color: #d35400;
+            padding-left: 10px;
+        }
+
+        h2, h2, h2 {
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .disk-title {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f0f4f8;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #fbfbfb;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f7ff;
+        }
+
+        .table-danger th {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .table-light th {
+            background-color: #ecf0f1;
+        }
+
+        p {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+            }
+
+            .page {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+
+            .table th {
+                background-color: #ccc !important;
+                color: #000 !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -57,9 +166,9 @@
         <h2 class="section">外部系統每月掃片量</h2>
         <table class="table table-bordered table-sm">
             <tbody>
-                <tr><td>前一個月掃片量</td><td>9</td></tr>
-                <tr><td>本月掃片量</td><td>12</td></tr>
-                <tr><td>成長率</td><td>0.33</td></tr>
+                <tr><td>前一個月掃片量</td><td>0</td></tr>
+                <tr><td>本月掃片量</td><td>0</td></tr>
+                <tr><td>成長率</td><td>0.0</td></tr>
             </tbody>
         </table>
 
@@ -273,7 +382,11 @@
           </tbody>
         </table>
 
-        <h2 class="section-title">系統 CPU 使用率報告</h2>
+        <div class="section">
+            <h2>四、系統資源使用情況</h2>
+        </div>
+
+        <h2 class="section-title">系統 CPU 報告</h2>
 
         <h2 class="section-title">當月 CPU 使用率高於 70% 的紀錄</h2>
         <p>外部系統</p>
@@ -281,7 +394,6 @@
           <thead class="table-danger">
             <tr>
               <th>#</th>
-              <th>主機名稱</th>
               <th>使用率 (%)</th>
               <th>發生時間</th>
             </tr>
@@ -290,23 +402,26 @@
             
             <tr>
               <td>1</td>
-              <td>10.40.4.67</td>
               <td>99.99</td>
-              <td>2025-06-20 14:28:56</td>
+              <td>2025-06-25 13:29:56</td>
             </tr>
             
             <tr>
               <td>2</td>
-              <td>10.40.4.67</td>
-              <td>83.59</td>
-              <td>2025-06-20 14:29:56</td>
+              <td>75.92</td>
+              <td>2025-06-25 13:36:56</td>
             </tr>
             
             <tr>
               <td>3</td>
-              <td>10.40.4.67</td>
-              <td>99.99</td>
-              <td>2025-06-25 13:29:56</td>
+              <td>74.55</td>
+              <td>2025-06-24 16:39:56</td>
+            </tr>
+            
+            <tr>
+              <td>4</td>
+              <td>70.69</td>
+              <td>2025-06-27 01:01:56</td>
             </tr>
             
           </tbody>
@@ -317,7 +432,6 @@
           <thead class="table-danger">
             <tr>
               <th>#</th>
-              <th>主機名稱</th>
               <th>使用率 (%)</th>
               <th>發生時間</th>
             </tr>
@@ -326,1105 +440,471 @@
             
             <tr>
               <td>1</td>
-              <td>Windows</td>
-              <td>80.92</td>
-              <td>2025-06-20 11:23:09</td>
-            </tr>
-            
-            <tr>
-              <td>2</td>
-              <td>Windows</td>
-              <td>81.90</td>
-              <td>2025-06-20 11:24:09</td>
-            </tr>
-            
-            <tr>
-              <td>3</td>
-              <td>Windows</td>
-              <td>85.28</td>
-              <td>2025-06-20 11:25:09</td>
-            </tr>
-            
-            <tr>
-              <td>4</td>
-              <td>Windows</td>
-              <td>81.92</td>
-              <td>2025-06-20 11:28:09</td>
-            </tr>
-            
-            <tr>
-              <td>5</td>
-              <td>Windows</td>
-              <td>82.26</td>
-              <td>2025-06-20 11:29:09</td>
-            </tr>
-            
-            <tr>
-              <td>6</td>
-              <td>Windows</td>
-              <td>87.98</td>
-              <td>2025-06-20 11:30:09</td>
-            </tr>
-            
-            <tr>
-              <td>7</td>
-              <td>Windows</td>
-              <td>85.95</td>
-              <td>2025-06-20 11:31:09</td>
-            </tr>
-            
-            <tr>
-              <td>8</td>
-              <td>Windows</td>
-              <td>84.23</td>
-              <td>2025-06-20 11:32:09</td>
-            </tr>
-            
-            <tr>
-              <td>9</td>
-              <td>Windows</td>
-              <td>82.95</td>
-              <td>2025-06-20 11:34:09</td>
-            </tr>
-            
-            <tr>
-              <td>10</td>
-              <td>Windows</td>
-              <td>82.07</td>
-              <td>2025-06-20 11:35:09</td>
-            </tr>
-            
-            <tr>
-              <td>11</td>
-              <td>Windows</td>
-              <td>81.99</td>
-              <td>2025-06-20 11:36:09</td>
-            </tr>
-            
-            <tr>
-              <td>12</td>
-              <td>Windows</td>
-              <td>82.28</td>
-              <td>2025-06-20 11:37:09</td>
-            </tr>
-            
-            <tr>
-              <td>13</td>
-              <td>Windows</td>
-              <td>83.88</td>
-              <td>2025-06-20 11:39:09</td>
-            </tr>
-            
-            <tr>
-              <td>14</td>
-              <td>Windows</td>
-              <td>83.55</td>
-              <td>2025-06-20 11:40:09</td>
-            </tr>
-            
-            <tr>
-              <td>15</td>
-              <td>Windows</td>
-              <td>89.53</td>
-              <td>2025-06-20 11:41:09</td>
-            </tr>
-            
-            <tr>
-              <td>16</td>
-              <td>Windows</td>
-              <td>84.94</td>
-              <td>2025-06-20 11:42:09</td>
-            </tr>
-            
-            <tr>
-              <td>17</td>
-              <td>Windows</td>
-              <td>83.18</td>
-              <td>2025-06-20 11:43:09</td>
-            </tr>
-            
-            <tr>
-              <td>18</td>
-              <td>Windows</td>
-              <td>87.01</td>
-              <td>2025-06-20 11:44:09</td>
-            </tr>
-            
-            <tr>
-              <td>19</td>
-              <td>Windows</td>
-              <td>86.45</td>
-              <td>2025-06-20 11:45:09</td>
-            </tr>
-            
-            <tr>
-              <td>20</td>
-              <td>Windows</td>
-              <td>87.51</td>
-              <td>2025-06-20 11:46:09</td>
-            </tr>
-            
-            <tr>
-              <td>21</td>
-              <td>Windows</td>
-              <td>91.89</td>
-              <td>2025-06-21 11:23:09</td>
-            </tr>
-            
-            <tr>
-              <td>22</td>
-              <td>Windows</td>
-              <td>93.40</td>
-              <td>2025-06-21 11:24:09</td>
-            </tr>
-            
-            <tr>
-              <td>23</td>
-              <td>Windows</td>
-              <td>90.98</td>
-              <td>2025-06-21 11:25:09</td>
-            </tr>
-            
-            <tr>
-              <td>24</td>
-              <td>Windows</td>
-              <td>92.46</td>
-              <td>2025-06-21 11:26:09</td>
-            </tr>
-            
-            <tr>
-              <td>25</td>
-              <td>Windows</td>
-              <td>92.19</td>
-              <td>2025-06-21 11:27:09</td>
-            </tr>
-            
-            <tr>
-              <td>26</td>
-              <td>Windows</td>
-              <td>93.07</td>
-              <td>2025-06-21 11:28:09</td>
-            </tr>
-            
-            <tr>
-              <td>27</td>
-              <td>Windows</td>
-              <td>92.81</td>
-              <td>2025-06-21 11:29:09</td>
-            </tr>
-            
-            <tr>
-              <td>28</td>
-              <td>Windows</td>
-              <td>97.35</td>
-              <td>2025-06-21 11:30:09</td>
-            </tr>
-            
-            <tr>
-              <td>29</td>
-              <td>Windows</td>
-              <td>94.55</td>
-              <td>2025-06-21 11:31:09</td>
-            </tr>
-            
-            <tr>
-              <td>30</td>
-              <td>Windows</td>
-              <td>95.86</td>
-              <td>2025-06-21 11:32:09</td>
-            </tr>
-            
-            <tr>
-              <td>31</td>
-              <td>Windows</td>
-              <td>93.68</td>
-              <td>2025-06-21 11:33:09</td>
-            </tr>
-            
-            <tr>
-              <td>32</td>
-              <td>Windows</td>
-              <td>93.03</td>
-              <td>2025-06-21 11:34:09</td>
-            </tr>
-            
-            <tr>
-              <td>33</td>
-              <td>Windows</td>
-              <td>93.38</td>
-              <td>2025-06-21 11:35:09</td>
-            </tr>
-            
-            <tr>
-              <td>34</td>
-              <td>Windows</td>
-              <td>93.15</td>
-              <td>2025-06-21 11:36:09</td>
-            </tr>
-            
-            <tr>
-              <td>35</td>
-              <td>Windows</td>
-              <td>91.53</td>
-              <td>2025-06-21 11:37:09</td>
-            </tr>
-            
-            <tr>
-              <td>36</td>
-              <td>Windows</td>
-              <td>88.46</td>
-              <td>2025-06-21 11:38:09</td>
-            </tr>
-            
-            <tr>
-              <td>37</td>
-              <td>Windows</td>
-              <td>89.85</td>
-              <td>2025-06-21 11:39:09</td>
-            </tr>
-            
-            <tr>
-              <td>38</td>
-              <td>Windows</td>
-              <td>91.82</td>
-              <td>2025-06-21 11:40:09</td>
-            </tr>
-            
-            <tr>
-              <td>39</td>
-              <td>Windows</td>
-              <td>92.54</td>
-              <td>2025-06-21 11:41:09</td>
-            </tr>
-            
-            <tr>
-              <td>40</td>
-              <td>Windows</td>
-              <td>94.08</td>
-              <td>2025-06-21 11:42:09</td>
-            </tr>
-            
-            <tr>
-              <td>41</td>
-              <td>Windows</td>
-              <td>94.72</td>
-              <td>2025-06-21 11:43:09</td>
-            </tr>
-            
-            <tr>
-              <td>42</td>
-              <td>Windows</td>
-              <td>92.60</td>
-              <td>2025-06-21 11:44:09</td>
-            </tr>
-            
-            <tr>
-              <td>43</td>
-              <td>Windows</td>
-              <td>93.14</td>
-              <td>2025-06-22 11:23:09</td>
-            </tr>
-            
-            <tr>
-              <td>44</td>
-              <td>Windows</td>
-              <td>90.76</td>
-              <td>2025-06-22 11:24:09</td>
-            </tr>
-            
-            <tr>
-              <td>45</td>
-              <td>Windows</td>
-              <td>92.15</td>
-              <td>2025-06-22 11:25:09</td>
-            </tr>
-            
-            <tr>
-              <td>46</td>
-              <td>Windows</td>
-              <td>91.92</td>
-              <td>2025-06-22 11:26:09</td>
-            </tr>
-            
-            <tr>
-              <td>47</td>
-              <td>Windows</td>
-              <td>92.97</td>
-              <td>2025-06-22 11:27:09</td>
-            </tr>
-            
-            <tr>
-              <td>48</td>
-              <td>Windows</td>
-              <td>92.44</td>
-              <td>2025-06-22 11:28:09</td>
-            </tr>
-            
-            <tr>
-              <td>49</td>
-              <td>Windows</td>
-              <td>92.98</td>
-              <td>2025-06-22 11:29:09</td>
-            </tr>
-            
-            <tr>
-              <td>50</td>
-              <td>Windows</td>
-              <td>96.68</td>
-              <td>2025-06-22 11:30:09</td>
-            </tr>
-            
-            <tr>
-              <td>51</td>
-              <td>Windows</td>
-              <td>95.60</td>
-              <td>2025-06-22 11:31:09</td>
-            </tr>
-            
-            <tr>
-              <td>52</td>
-              <td>Windows</td>
-              <td>91.96</td>
-              <td>2025-06-22 11:32:09</td>
-            </tr>
-            
-            <tr>
-              <td>53</td>
-              <td>Windows</td>
-              <td>93.68</td>
-              <td>2025-06-22 11:33:09</td>
-            </tr>
-            
-            <tr>
-              <td>54</td>
-              <td>Windows</td>
-              <td>92.99</td>
-              <td>2025-06-22 11:34:09</td>
-            </tr>
-            
-            <tr>
-              <td>55</td>
-              <td>Windows</td>
-              <td>91.19</td>
-              <td>2025-06-22 11:35:09</td>
-            </tr>
-            
-            <tr>
-              <td>56</td>
-              <td>Windows</td>
-              <td>91.96</td>
-              <td>2025-06-22 11:36:09</td>
-            </tr>
-            
-            <tr>
-              <td>57</td>
-              <td>Windows</td>
-              <td>91.32</td>
-              <td>2025-06-22 11:37:09</td>
-            </tr>
-            
-            <tr>
-              <td>58</td>
-              <td>Windows</td>
-              <td>91.86</td>
-              <td>2025-06-22 11:38:09</td>
-            </tr>
-            
-            <tr>
-              <td>59</td>
-              <td>Windows</td>
-              <td>90.87</td>
-              <td>2025-06-22 11:39:09</td>
-            </tr>
-            
-            <tr>
-              <td>60</td>
-              <td>Windows</td>
-              <td>91.79</td>
-              <td>2025-06-22 11:40:09</td>
-            </tr>
-            
-            <tr>
-              <td>61</td>
-              <td>Windows</td>
-              <td>92.37</td>
-              <td>2025-06-22 11:41:09</td>
-            </tr>
-            
-            <tr>
-              <td>62</td>
-              <td>Windows</td>
-              <td>90.99</td>
-              <td>2025-06-22 11:42:09</td>
-            </tr>
-            
-            <tr>
-              <td>63</td>
-              <td>Windows</td>
-              <td>93.24</td>
-              <td>2025-06-22 11:43:09</td>
-            </tr>
-            
-            <tr>
-              <td>64</td>
-              <td>Windows</td>
-              <td>93.69</td>
-              <td>2025-06-22 11:44:09</td>
-            </tr>
-            
-            <tr>
-              <td>65</td>
-              <td>Windows</td>
-              <td>92.92</td>
-              <td>2025-06-23 11:23:09</td>
-            </tr>
-            
-            <tr>
-              <td>66</td>
-              <td>Windows</td>
-              <td>91.62</td>
-              <td>2025-06-23 11:24:09</td>
-            </tr>
-            
-            <tr>
-              <td>67</td>
-              <td>Windows</td>
-              <td>93.77</td>
-              <td>2025-06-23 11:25:09</td>
-            </tr>
-            
-            <tr>
-              <td>68</td>
-              <td>Windows</td>
-              <td>93.11</td>
-              <td>2025-06-23 11:26:09</td>
-            </tr>
-            
-            <tr>
-              <td>69</td>
-              <td>Windows</td>
-              <td>93.53</td>
-              <td>2025-06-23 11:27:09</td>
-            </tr>
-            
-            <tr>
-              <td>70</td>
-              <td>Windows</td>
-              <td>93.34</td>
-              <td>2025-06-23 11:28:09</td>
-            </tr>
-            
-            <tr>
-              <td>71</td>
-              <td>Windows</td>
-              <td>94.14</td>
-              <td>2025-06-23 11:29:09</td>
-            </tr>
-            
-            <tr>
-              <td>72</td>
-              <td>Windows</td>
-              <td>95.94</td>
-              <td>2025-06-23 11:30:09</td>
-            </tr>
-            
-            <tr>
-              <td>73</td>
-              <td>Windows</td>
-              <td>96.01</td>
-              <td>2025-06-23 11:31:09</td>
-            </tr>
-            
-            <tr>
-              <td>74</td>
-              <td>Windows</td>
-              <td>94.84</td>
-              <td>2025-06-23 11:32:09</td>
-            </tr>
-            
-            <tr>
-              <td>75</td>
-              <td>Windows</td>
-              <td>92.43</td>
-              <td>2025-06-23 11:33:09</td>
-            </tr>
-            
-            <tr>
-              <td>76</td>
-              <td>Windows</td>
-              <td>91.73</td>
-              <td>2025-06-23 11:34:09</td>
-            </tr>
-            
-            <tr>
-              <td>77</td>
-              <td>Windows</td>
-              <td>95.37</td>
-              <td>2025-06-23 11:35:09</td>
-            </tr>
-            
-            <tr>
-              <td>78</td>
-              <td>Windows</td>
-              <td>93.09</td>
-              <td>2025-06-23 11:36:09</td>
-            </tr>
-            
-            <tr>
-              <td>79</td>
-              <td>Windows</td>
-              <td>90.10</td>
-              <td>2025-06-23 11:37:09</td>
-            </tr>
-            
-            <tr>
-              <td>80</td>
-              <td>Windows</td>
-              <td>89.43</td>
-              <td>2025-06-23 11:38:09</td>
-            </tr>
-            
-            <tr>
-              <td>81</td>
-              <td>Windows</td>
-              <td>90.79</td>
-              <td>2025-06-23 11:39:09</td>
-            </tr>
-            
-            <tr>
-              <td>82</td>
-              <td>Windows</td>
-              <td>92.50</td>
-              <td>2025-06-23 11:40:09</td>
-            </tr>
-            
-            <tr>
-              <td>83</td>
-              <td>Windows</td>
-              <td>92.71</td>
-              <td>2025-06-23 11:41:09</td>
-            </tr>
-            
-            <tr>
-              <td>84</td>
-              <td>Windows</td>
-              <td>92.63</td>
-              <td>2025-06-23 11:42:09</td>
-            </tr>
-            
-            <tr>
-              <td>85</td>
-              <td>Windows</td>
-              <td>93.81</td>
-              <td>2025-06-23 11:43:09</td>
-            </tr>
-            
-            <tr>
-              <td>86</td>
-              <td>Windows</td>
-              <td>82.80</td>
-              <td>2025-06-23 11:44:09</td>
-            </tr>
-            
-            <tr>
-              <td>87</td>
-              <td>Windows</td>
-              <td>86.74</td>
-              <td>2025-06-23 11:46:09</td>
-            </tr>
-            
-            <tr>
-              <td>88</td>
-              <td>Windows</td>
-              <td>87.18</td>
-              <td>2025-06-23 11:47:09</td>
-            </tr>
-            
-            <tr>
-              <td>89</td>
-              <td>Windows</td>
-              <td>91.70</td>
-              <td>2025-06-24 11:23:09</td>
-            </tr>
-            
-            <tr>
-              <td>90</td>
-              <td>Windows</td>
-              <td>92.37</td>
-              <td>2025-06-24 11:24:09</td>
-            </tr>
-            
-            <tr>
-              <td>91</td>
-              <td>Windows</td>
-              <td>91.73</td>
-              <td>2025-06-24 11:25:09</td>
-            </tr>
-            
-            <tr>
-              <td>92</td>
-              <td>Windows</td>
-              <td>92.38</td>
-              <td>2025-06-24 11:26:09</td>
-            </tr>
-            
-            <tr>
-              <td>93</td>
-              <td>Windows</td>
-              <td>93.35</td>
-              <td>2025-06-24 11:27:09</td>
-            </tr>
-            
-            <tr>
-              <td>94</td>
-              <td>Windows</td>
-              <td>92.62</td>
-              <td>2025-06-24 11:28:09</td>
-            </tr>
-            
-            <tr>
-              <td>95</td>
-              <td>Windows</td>
-              <td>92.39</td>
-              <td>2025-06-24 11:29:09</td>
-            </tr>
-            
-            <tr>
-              <td>96</td>
-              <td>Windows</td>
-              <td>95.82</td>
-              <td>2025-06-24 11:30:09</td>
-            </tr>
-            
-            <tr>
-              <td>97</td>
-              <td>Windows</td>
-              <td>95.71</td>
-              <td>2025-06-24 11:31:09</td>
-            </tr>
-            
-            <tr>
-              <td>98</td>
-              <td>Windows</td>
-              <td>94.42</td>
-              <td>2025-06-24 11:32:09</td>
-            </tr>
-            
-            <tr>
-              <td>99</td>
-              <td>Windows</td>
-              <td>92.76</td>
-              <td>2025-06-24 11:33:09</td>
-            </tr>
-            
-            <tr>
-              <td>100</td>
-              <td>Windows</td>
-              <td>92.43</td>
-              <td>2025-06-24 11:34:09</td>
-            </tr>
-            
-            <tr>
-              <td>101</td>
-              <td>Windows</td>
-              <td>93.16</td>
-              <td>2025-06-24 11:35:09</td>
-            </tr>
-            
-            <tr>
-              <td>102</td>
-              <td>Windows</td>
-              <td>95.40</td>
-              <td>2025-06-24 11:36:09</td>
-            </tr>
-            
-            <tr>
-              <td>103</td>
-              <td>Windows</td>
-              <td>93.84</td>
-              <td>2025-06-24 11:37:09</td>
-            </tr>
-            
-            <tr>
-              <td>104</td>
-              <td>Windows</td>
-              <td>92.50</td>
-              <td>2025-06-24 11:38:09</td>
-            </tr>
-            
-            <tr>
-              <td>105</td>
-              <td>Windows</td>
-              <td>90.88</td>
-              <td>2025-06-24 11:39:09</td>
-            </tr>
-            
-            <tr>
-              <td>106</td>
-              <td>Windows</td>
-              <td>92.23</td>
-              <td>2025-06-24 11:40:09</td>
-            </tr>
-            
-            <tr>
-              <td>107</td>
-              <td>Windows</td>
-              <td>92.75</td>
-              <td>2025-06-24 11:41:09</td>
-            </tr>
-            
-            <tr>
-              <td>108</td>
-              <td>Windows</td>
-              <td>92.18</td>
-              <td>2025-06-24 11:42:09</td>
-            </tr>
-            
-            <tr>
-              <td>109</td>
-              <td>Windows</td>
-              <td>93.15</td>
-              <td>2025-06-24 11:43:09</td>
-            </tr>
-            
-            <tr>
-              <td>110</td>
-              <td>Windows</td>
-              <td>93.34</td>
-              <td>2025-06-24 11:44:09</td>
-            </tr>
-            
-            <tr>
-              <td>111</td>
-              <td>Windows</td>
-              <td>94.33</td>
-              <td>2025-06-26 11:25:09</td>
-            </tr>
-            
-            <tr>
-              <td>112</td>
-              <td>Windows</td>
-              <td>95.57</td>
-              <td>2025-06-26 11:26:09</td>
-            </tr>
-            
-            <tr>
-              <td>113</td>
-              <td>Windows</td>
-              <td>95.48</td>
-              <td>2025-06-26 11:27:09</td>
-            </tr>
-            
-            <tr>
-              <td>114</td>
-              <td>Windows</td>
-              <td>90.29</td>
-              <td>2025-06-26 11:28:09</td>
-            </tr>
-            
-            <tr>
-              <td>115</td>
-              <td>Windows</td>
-              <td>94.20</td>
-              <td>2025-06-26 11:29:09</td>
-            </tr>
-            
-            <tr>
-              <td>116</td>
-              <td>Windows</td>
-              <td>94.77</td>
-              <td>2025-06-26 11:30:09</td>
-            </tr>
-            
-            <tr>
-              <td>117</td>
-              <td>Windows</td>
-              <td>91.35</td>
-              <td>2025-06-26 11:31:09</td>
-            </tr>
-            
-            <tr>
-              <td>118</td>
-              <td>Windows</td>
-              <td>83.43</td>
-              <td>2025-06-26 11:32:09</td>
-            </tr>
-            
-            <tr>
-              <td>119</td>
-              <td>Windows</td>
-              <td>83.81</td>
-              <td>2025-06-26 11:33:09</td>
-            </tr>
-            
-            <tr>
-              <td>120</td>
-              <td>Windows</td>
-              <td>94.65</td>
-              <td>2025-06-26 11:34:09</td>
-            </tr>
-            
-            <tr>
-              <td>121</td>
-              <td>Windows</td>
-              <td>91.55</td>
-              <td>2025-06-26 11:35:09</td>
-            </tr>
-            
-            <tr>
-              <td>122</td>
-              <td>Windows</td>
-              <td>92.09</td>
-              <td>2025-06-26 11:36:09</td>
-            </tr>
-            
-            <tr>
-              <td>123</td>
-              <td>Windows</td>
-              <td>91.35</td>
-              <td>2025-06-26 11:37:09</td>
-            </tr>
-            
-            <tr>
-              <td>124</td>
-              <td>Windows</td>
-              <td>93.90</td>
-              <td>2025-06-26 11:38:09</td>
-            </tr>
-            
-            <tr>
-              <td>125</td>
-              <td>Windows</td>
-              <td>89.44</td>
-              <td>2025-06-26 11:39:09</td>
-            </tr>
-            
-            <tr>
-              <td>126</td>
-              <td>Windows</td>
-              <td>92.93</td>
-              <td>2025-06-26 11:40:09</td>
-            </tr>
-            
-            <tr>
-              <td>127</td>
-              <td>Windows</td>
-              <td>93.73</td>
-              <td>2025-06-26 11:41:09</td>
-            </tr>
-            
-            <tr>
-              <td>128</td>
-              <td>Windows</td>
-              <td>92.19</td>
-              <td>2025-06-26 11:42:09</td>
-            </tr>
-            
-            <tr>
-              <td>129</td>
-              <td>Windows</td>
-              <td>92.68</td>
-              <td>2025-06-26 11:43:09</td>
-            </tr>
-            
-            <tr>
-              <td>130</td>
-              <td>Windows</td>
-              <td>90.70</td>
-              <td>2025-06-26 11:44:09</td>
-            </tr>
-            
-            <tr>
-              <td>131</td>
-              <td>Windows</td>
-              <td>95.52</td>
-              <td>2025-06-26 11:45:09</td>
-            </tr>
-            
-            <tr>
-              <td>132</td>
-              <td>Windows</td>
-              <td>94.09</td>
-              <td>2025-06-26 11:46:09</td>
-            </tr>
-            
-            <tr>
-              <td>133</td>
-              <td>Windows</td>
-              <td>95.50</td>
-              <td>2025-06-26 11:47:09</td>
-            </tr>
-            
-            <tr>
-              <td>134</td>
-              <td>Windows</td>
-              <td>94.23</td>
-              <td>2025-06-26 11:48:09</td>
-            </tr>
-            
-            <tr>
-              <td>135</td>
-              <td>Windows</td>
-              <td>95.90</td>
-              <td>2025-06-26 11:49:09</td>
-            </tr>
-            
-            <tr>
-              <td>136</td>
-              <td>Windows</td>
-              <td>93.87</td>
-              <td>2025-06-26 11:50:09</td>
-            </tr>
-            
-            <tr>
-              <td>137</td>
-              <td>Windows</td>
-              <td>95.49</td>
-              <td>2025-06-26 11:51:09</td>
-            </tr>
-            
-            <tr>
-              <td>138</td>
-              <td>Windows</td>
-              <td>92.53</td>
-              <td>2025-06-26 11:52:09</td>
-            </tr>
-            
-            <tr>
-              <td>139</td>
-              <td>Windows</td>
-              <td>93.65</td>
-              <td>2025-06-26 11:53:09</td>
-            </tr>
-            
-            <tr>
-              <td>140</td>
-              <td>Windows</td>
-              <td>92.53</td>
-              <td>2025-06-26 11:54:09</td>
-            </tr>
-            
-            <tr>
-              <td>141</td>
-              <td>Windows</td>
-              <td>95.50</td>
-              <td>2025-06-26 11:55:09</td>
-            </tr>
-            
-            <tr>
-              <td>142</td>
-              <td>Windows</td>
-              <td>92.88</td>
-              <td>2025-06-26 11:56:09</td>
-            </tr>
-            
-            <tr>
-              <td>143</td>
-              <td>Windows</td>
               <td>98.76</td>
               <td>2025-06-26 11:57:09</td>
             </tr>
             
             <tr>
-              <td>144</td>
-              <td>Windows</td>
-              <td>95.27</td>
-              <td>2025-06-26 11:58:09</td>
+              <td>2</td>
+              <td>97.35</td>
+              <td>2025-06-21 11:30:09</td>
             </tr>
             
             <tr>
-              <td>145</td>
-              <td>Windows</td>
-              <td>96.61</td>
-              <td>2025-06-26 11:59:09</td>
-            </tr>
-            
-            <tr>
-              <td>146</td>
-              <td>Windows</td>
-              <td>95.08</td>
-              <td>2025-06-26 12:00:09</td>
-            </tr>
-            
-            <tr>
-              <td>147</td>
-              <td>Windows</td>
-              <td>92.73</td>
-              <td>2025-06-26 12:01:09</td>
-            </tr>
-            
-            <tr>
-              <td>148</td>
-              <td>Windows</td>
-              <td>88.54</td>
-              <td>2025-06-26 12:02:09</td>
-            </tr>
-            
-            <tr>
-              <td>149</td>
-              <td>Windows</td>
-              <td>92.01</td>
-              <td>2025-06-26 12:03:09</td>
-            </tr>
-            
-            <tr>
-              <td>150</td>
-              <td>Windows</td>
-              <td>91.99</td>
-              <td>2025-06-26 12:04:09</td>
-            </tr>
-            
-            <tr>
-              <td>151</td>
-              <td>Windows</td>
-              <td>90.07</td>
-              <td>2025-06-26 12:05:09</td>
-            </tr>
-            
-            <tr>
-              <td>152</td>
-              <td>Windows</td>
-              <td>93.99</td>
-              <td>2025-06-26 12:06:09</td>
-            </tr>
-            
-            <tr>
-              <td>153</td>
-              <td>Windows</td>
-              <td>95.98</td>
-              <td>2025-06-26 12:07:09</td>
-            </tr>
-            
-            <tr>
-              <td>154</td>
-              <td>Windows</td>
-              <td>96.71</td>
-              <td>2025-06-26 12:08:09</td>
-            </tr>
-            
-            <tr>
-              <td>155</td>
-              <td>Windows</td>
-              <td>97.08</td>
-              <td>2025-06-26 12:09:09</td>
-            </tr>
-            
-            <tr>
-              <td>156</td>
-              <td>Windows</td>
+              <td>3</td>
               <td>97.13</td>
               <td>2025-06-26 12:10:09</td>
             </tr>
             
             <tr>
-              <td>157</td>
-              <td>Windows</td>
-              <td>90.73</td>
-              <td>2025-06-26 12:11:09</td>
+              <td>4</td>
+              <td>97.08</td>
+              <td>2025-06-26 12:09:09</td>
+            </tr>
+            
+            <tr>
+              <td>5</td>
+              <td>96.75</td>
+              <td>2025-06-27 11:30:09</td>
+            </tr>
+            
+            <tr>
+              <td>6</td>
+              <td>96.75</td>
+              <td>2025-06-27 11:32:09</td>
+            </tr>
+            
+            <tr>
+              <td>7</td>
+              <td>96.71</td>
+              <td>2025-06-26 12:08:09</td>
+            </tr>
+            
+            <tr>
+              <td>8</td>
+              <td>96.68</td>
+              <td>2025-06-22 11:30:09</td>
+            </tr>
+            
+            <tr>
+              <td>9</td>
+              <td>96.61</td>
+              <td>2025-06-26 11:59:09</td>
+            </tr>
+            
+            <tr>
+              <td>10</td>
+              <td>96.01</td>
+              <td>2025-06-23 11:31:09</td>
             </tr>
             
           </tbody>
         </table>
+
+        <h2 class="section-title">當月 CPU Load Average 高於 core 數紀錄</h2>
+        <p>外部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>Load Average</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td>1</td>
+              <td>13.35</td>
+              <td>2025-06-24 16:39:41</td>
+            </tr>
+            
+            <tr>
+              <td>2</td>
+              <td>6.28</td>
+              <td>2025-06-24 16:40:41</td>
+            </tr>
+            
+            <tr>
+              <td>3</td>
+              <td>6.12</td>
+              <td>2025-06-25 13:29:41</td>
+            </tr>
+            
+            <tr>
+              <td>4</td>
+              <td>5.61</td>
+              <td>2025-06-25 13:30:41</td>
+            </tr>
+            
+            <tr>
+              <td>5</td>
+              <td>5.24</td>
+              <td>2025-06-25 13:36:41</td>
+            </tr>
+            
+            <tr>
+              <td>6</td>
+              <td>5.02</td>
+              <td>2025-06-24 01:07:41</td>
+            </tr>
+            
+            <tr>
+              <td>7</td>
+              <td>4.52</td>
+              <td>2025-06-26 01:11:41</td>
+            </tr>
+            
+            <tr>
+              <td>8</td>
+              <td>4.45</td>
+              <td>2025-06-21 01:05:41</td>
+            </tr>
+            
+            <tr>
+              <td>9</td>
+              <td>4.41</td>
+              <td>2025-06-23 01:07:41</td>
+            </tr>
+            
+            <tr>
+              <td>10</td>
+              <td>4.26</td>
+              <td>2025-06-22 01:06:41</td>
+            </tr>
+            
+          </tbody>
+        </table>
+
+        <p>內部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>Load Average</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+
+        <h2 class="section-title">系統 Mem 報告</h2>
+
+        <h2 class="section-title">當月 Mem 使用率高於 70% 的紀錄</h2>
+        <p>外部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>使用率 (%)</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td>1</td>
+              <td>64.83</td>
+              <td>2025-06-25 15:13:36</td>
+            </tr>
+            
+            <tr>
+              <td>2</td>
+              <td>65.18</td>
+              <td>2025-06-25 15:14:36</td>
+            </tr>
+            
+            <tr>
+              <td>3</td>
+              <td>65.20</td>
+              <td>2025-06-25 14:22:36</td>
+            </tr>
+            
+            <tr>
+              <td>4</td>
+              <td>65.22</td>
+              <td>2025-06-25 14:42:36</td>
+            </tr>
+            
+            <tr>
+              <td>5</td>
+              <td>65.23</td>
+              <td>2025-06-25 14:58:36</td>
+            </tr>
+            
+            <tr>
+              <td>6</td>
+              <td>65.24</td>
+              <td>2025-06-25 14:25:36</td>
+            </tr>
+            
+            <tr>
+              <td>7</td>
+              <td>65.25</td>
+              <td>2025-06-25 14:45:36</td>
+            </tr>
+            
+            <tr>
+              <td>8</td>
+              <td>65.25</td>
+              <td>2025-06-25 14:57:36</td>
+            </tr>
+            
+            <tr>
+              <td>9</td>
+              <td>65.25</td>
+              <td>2025-06-25 14:59:36</td>
+            </tr>
+            
+            <tr>
+              <td>10</td>
+              <td>65.25</td>
+              <td>2025-06-25 16:20:36</td>
+            </tr>
+            
+          </tbody>
+        </table>
+
+        <p>內部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>使用率 (%)</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+
+        <!-- 系統 DISK 報告 -->
+        <h2>系統 DISK 報告</h2>
+        <h2>當月 DISK 使用率前 10 筆紀錄</h2>
+        
+            <h2>外部系統磁碟 /</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>63.38</td><td>2025-06-27 00:33:48</td></tr>
+                
+                    <tr><td>2</td><td>63.38</td><td>2025-06-27 00:34:48</td></tr>
+                
+                    <tr><td>3</td><td>63.38</td><td>2025-06-27 00:35:48</td></tr>
+                
+                    <tr><td>4</td><td>63.38</td><td>2025-06-27 00:36:48</td></tr>
+                
+                    <tr><td>5</td><td>63.38</td><td>2025-06-27 00:37:48</td></tr>
+                
+                    <tr><td>6</td><td>63.38</td><td>2025-06-27 00:38:48</td></tr>
+                
+                    <tr><td>7</td><td>63.38</td><td>2025-06-27 00:39:48</td></tr>
+                
+                    <tr><td>8</td><td>63.38</td><td>2025-06-27 00:40:48</td></tr>
+                
+                    <tr><td>9</td><td>63.38</td><td>2025-06-27 00:41:48</td></tr>
+                
+                    <tr><td>10</td><td>63.38</td><td>2025-06-27 00:42:48</td></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 /data</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>45.09</td><td>2025-06-20 15:35:50</td></tr>
+                
+                    <tr><td>2</td><td>45.09</td><td>2025-06-20 15:36:50</td></tr>
+                
+                    <tr><td>3</td><td>45.09</td><td>2025-06-20 15:37:50</td></tr>
+                
+                    <tr><td>4</td><td>45.09</td><td>2025-06-20 15:38:50</td></tr>
+                
+                    <tr><td>5</td><td>45.09</td><td>2025-06-20 15:39:50</td></tr>
+                
+                    <tr><td>6</td><td>45.09</td><td>2025-06-20 15:40:50</td></tr>
+                
+                    <tr><td>7</td><td>45.09</td><td>2025-06-20 15:41:50</td></tr>
+                
+                    <tr><td>8</td><td>45.09</td><td>2025-06-20 15:42:50</td></tr>
+                
+                    <tr><td>9</td><td>45.09</td><td>2025-06-20 15:43:50</td></tr>
+                
+                    <tr><td>10</td><td>45.09</td><td>2025-06-20 15:44:50</td></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 /var/lib/docker</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>63.92</td><td>2025-06-26 18:58:51</td></tr>
+                
+                    <tr><td>2</td><td>63.92</td><td>2025-06-26 18:59:51</td></tr>
+                
+                    <tr><td>3</td><td>63.92</td><td>2025-06-26 19:00:51</td></tr>
+                
+                    <tr><td>4</td><td>63.92</td><td>2025-06-26 19:01:51</td></tr>
+                
+                    <tr><td>5</td><td>63.92</td><td>2025-06-26 19:02:51</td></tr>
+                
+                    <tr><td>6</td><td>63.92</td><td>2025-06-26 19:03:51</td></tr>
+                
+                    <tr><td>7</td><td>63.92</td><td>2025-06-26 19:04:51</td></tr>
+                
+                    <tr><td>8</td><td>63.92</td><td>2025-06-26 19:05:51</td></tr>
+                
+                    <tr><td>9</td><td>63.92</td><td>2025-06-26 19:06:51</td></tr>
+                
+                    <tr><td>10</td><td>63.92</td><td>2025-06-26 19:07:51</td></tr>
+                
+            </table>
+        
+    
+        
+            <p>無內部系統磁碟數據</p>
+        
+    
+        <h2>系統 I/O 報告</h2>
+        <h2>當月 IOPS 前 10 筆紀錄</h2>
+        
+            <h2>外部系統磁碟 dm-0</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>140.48</td><td>2025-06-21 06:30:40</td></tr>
+                
+                    <tr><td>2</td><td>135.33</td><td>2025-06-27 06:22:40</td></tr>
+                
+                    <tr><td>3</td><td>87.62</td><td>2025-06-24 17:39:40</td></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 dm-1</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率</th><th>發生時間</th></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 dm-2</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>320.50</td><td>2025-06-24 16:40:42</td></tr>
+                
+                    <tr><td>2</td><td>164.83</td><td>2025-06-27 02:20:42</td></tr>
+                
+                    <tr><td>3</td><td>162.18</td><td>2025-06-25 02:20:42</td></tr>
+                
+                    <tr><td>4</td><td>159.57</td><td>2025-06-26 02:20:42</td></tr>
+                
+                    <tr><td>5</td><td>158.18</td><td>2025-06-24 02:20:42</td></tr>
+                
+                    <tr><td>6</td><td>157.30</td><td>2025-06-21 02:20:42</td></tr>
+                
+                    <tr><td>7</td><td>157.18</td><td>2025-06-23 02:20:42</td></tr>
+                
+                    <tr><td>8</td><td>154.90</td><td>2025-06-27 01:32:42</td></tr>
+                
+                    <tr><td>9</td><td>153.83</td><td>2025-06-22 02:20:42</td></tr>
+                
+                    <tr><td>10</td><td>142.75</td><td>2025-06-26 01:41:42</td></tr>
+                
+            </table>
+        
+    
+        
+            <p>無內部系統 IOPS 數據</p>
+        
+    
+        <h2>當月 讀寫(Read/Write MB/s) 前 10 筆紀錄</h2>
+        
+            <h2>外部系統磁碟 dm-0</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (MB/s)</th><th>發生時間</th></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 dm-1</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (MB/s)</th><th>發生時間</th></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 dm-2</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (MB/s)</th><th>發生時間</th></tr>
+                
+            </table>
+        
+    
+        
+            <p>無內部系統 Read/Write 數據</p>
+        
+    
+        <h2>當月 Disk Active Time (%) 前 10 筆紀錄</h2>
+        
+            <h2>外部系統磁碟 dm-0</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>2715.00</td><td>2025-06-24 08:50:45</td></tr>
+                
+                    <tr><td>2</td><td>1485.00</td><td>2025-06-21 23:13:45</td></tr>
+                
+                    <tr><td>3</td><td>518.00</td><td>2025-06-24 06:02:45</td></tr>
+                
+                    <tr><td>4</td><td>469.00</td><td>2025-06-24 17:19:45</td></tr>
+                
+                    <tr><td>5</td><td>462.90</td><td>2025-06-22 11:24:45</td></tr>
+                
+                    <tr><td>6</td><td>407.60</td><td>2025-06-22 11:35:45</td></tr>
+                
+                    <tr><td>7</td><td>307.50</td><td>2025-06-23 19:49:45</td></tr>
+                
+                    <tr><td>8</td><td>166.90</td><td>2025-06-26 12:55:45</td></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 dm-1</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                
+            </table>
+        
+            <h2>外部系統磁碟 dm-2</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                
+                    <tr><td>1</td><td>176.90</td><td>2025-06-26 01:47:42</td></tr>
+                
+                    <tr><td>2</td><td>106.40</td><td>2025-06-22 05:31:42</td></tr>
+                
+                    <tr><td>3</td><td>100.50</td><td>2025-06-22 00:27:42</td></tr>
+                
+                    <tr><td>4</td><td>100.30</td><td>2025-06-21 04:11:42</td></tr>
+                
+                    <tr><td>5</td><td>100.30</td><td>2025-06-22 20:52:42</td></tr>
+                
+                    <tr><td>6</td><td>100.10</td><td>2025-06-25 05:40:42</td></tr>
+                
+                    <tr><td>7</td><td>100.00</td><td>2025-06-22 14:07:42</td></tr>
+                
+                    <tr><td>8</td><td>100.00</td><td>2025-06-25 05:15:42</td></tr>
+                
+                    <tr><td>9</td><td>99.70</td><td>2025-06-24 16:39:42</td></tr>
+                
+                    <tr><td>10</td><td>99.30</td><td>2025-06-25 15:38:42</td></tr>
+                
+            </table>
+        
+    
+        
+            <p>無內部系統 Disk Active Time 數據</p>
+        
     </div>
 </body>
 </html>

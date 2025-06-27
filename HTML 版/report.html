@@ -4,13 +4,122 @@
     <meta charset="UTF-8">
     <title>成大外部伺服器每月檢測報告</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .page { max-width: 800px; margin: auto; }
-        .title { text-align: center; }
-        .section { margin-top: 20px; }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .table th { background-color: #f2f2f2; }
+        body {
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 30px 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        h1.title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #005a9e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        h2.section, h2.section-title {
+            border-left: 5px solid #005a9e;
+            padding-left: 10px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        h2.section-title {
+            border-left: 4px solid #e67e22;
+            background-color: #fef5e7;
+            color: #d35400;
+            padding-left: 10px;
+        }
+
+        h2, h2, h2 {
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .disk-title {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f0f4f8;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #fbfbfb;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f7ff;
+        }
+
+        .table-danger th {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .table-light th {
+            background-color: #ecf0f1;
+        }
+
+        p {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+            }
+
+            .page {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+
+            .table th {
+                background-color: #ccc !important;
+                color: #000 !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -154,7 +263,11 @@
           </tbody>
         </table>
 
-        <h2 class="section-title">系統 CPU 使用率報告</h2>
+        <div class="section">
+            <h2>四、系統資源使用情況</h2>
+        </div>
+
+        <h2 class="section-title">系統 CPU 報告</h2>
 
         <h2 class="section-title">當月 CPU 使用率高於 70% 的紀錄</h2>
         <p>外部系統</p>
@@ -162,7 +275,6 @@
           <thead class="table-danger">
             <tr>
               <th>#</th>
-              <th>主機名稱</th>
               <th>使用率 (%)</th>
               <th>發生時間</th>
             </tr>
@@ -171,7 +283,6 @@
             {% for item in linux.cpu_alerts %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{ item.hostname }}</td>
               <td>{{ item.usage }}</td>
               <td>{{ item.timestamp }}</td>
             </tr>
@@ -184,7 +295,6 @@
           <thead class="table-danger">
             <tr>
               <th>#</th>
-              <th>主機名稱</th>
               <th>使用率 (%)</th>
               <th>發生時間</th>
             </tr>
@@ -193,13 +303,199 @@
             {% for item in windows.cpu_alerts %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{ item.hostname }}</td>
               <td>{{ item.usage }}</td>
               <td>{{ item.timestamp }}</td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
+
+        <h2 class="section-title">當月 CPU Load Average 高於 core 數紀錄</h2>
+        <p>外部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>Load Average</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in linux.cpuload_alerts %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ item.usage }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <p>內部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>Load Average</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in windows.cpuload_alerts %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ item.usage }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <h2 class="section-title">系統 Mem 報告</h2>
+
+        <h2 class="section-title">當月 Mem 使用率高於 70% 的紀錄</h2>
+        <p>外部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>使用率 (%)</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in linux.mem_alerts %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ item.usage }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <p>內部系統</p>
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>#</th>
+              <th>使用率 (%)</th>
+              <th>發生時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in windows.mem_alerts %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ item.usage }}</td>
+              <td>{{ item.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- 系統 DISK 報告 -->
+        <h2>系統 DISK 報告</h2>
+        <h2>當月 DISK 使用率前 10 筆紀錄</h2>
+        {% for disk in linux.disks %}
+            <h2>外部系統磁碟 {{ disk.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                {% for item in disk.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無外部系統磁碟數據</p>
+        {% endfor %}
+    
+        {% for disk in windows.disks %}
+            <h2>內部系統磁碟 {{ disk.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                {% for item in disk.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無內部系統磁碟數據</p>
+        {% endfor %}
+    
+        <h2>系統 I/O 報告</h2>
+        <h2>當月 IOPS 前 10 筆紀錄</h2>
+        {% for iops in linux.iops %}
+            <h2>外部系統磁碟 {{ iops.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率</th><th>發生時間</th></tr>
+                {% for item in iops.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無外部系統 IOPS 數據</p>
+        {% endfor %}
+    
+        {% for iops in windows.iops %}
+            <h2>內部系統磁碟 {{ iops.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率</th><th>發生時間</th></tr>
+                {% for item in iops.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無內部系統 IOPS 數據</p>
+        {% endfor %}
+    
+        <h2>當月 讀寫(Read/Write MB/s) 前 10 筆紀錄</h2>
+        {% for rw in linux.readwrite %}
+            <h2>外部系統磁碟 {{ rw.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (MB/s)</th><th>發生時間</th></tr>
+                {% for item in rw.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無外部系統 Read/Write 數據</p>
+        {% endfor %}
+    
+        {% for rw in windows.readwrite %}
+            <h2>內部系統磁碟 {{ rw.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (MB/s)</th><th>發生時間</th></tr>
+                {% for item in rw.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無內部系統 Read/Write 數據</p>
+        {% endfor %}
+    
+        <h2>當月 Disk Active Time (%) 前 10 筆紀錄</h2>
+        {% for util in linux.disk_util %}
+            <h2>外部系統磁碟 {{ util.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                {% for item in util.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無外部系統 Disk Active Time 數據</p>
+        {% endfor %}
+    
+        {% for util in windows.disk_util %}
+            <h2>內部系統磁碟 {{ util.name }}</h2>
+            <table class="table table-bordered table-hover table-sm">
+                <tr><th>#</th><th>使用率 (%)</th><th>發生時間</th></tr>
+                {% for item in util.alerts %}
+                    <tr><td>{{ loop.index }}</td><td>{{ item.usage }}</td><td>{{ item.timestamp }}</td></tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>無內部系統 Disk Active Time 數據</p>
+        {% endfor %}
     </div>
 </body>
 </html>
